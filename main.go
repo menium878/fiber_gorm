@@ -9,12 +9,13 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/monitor"
 	"github.com/gofiber/swagger"
 )
 
 // @title Fiber Example API
-// @version 1.0
-// @description This is a sample swagger for Fiber
+// @version 2.0
+// @description My fiber app for learning
 // @termsOfService http://swagger.io/terms/
 // @contact.name API Support
 // @contact.email fiber@swagger.io
@@ -31,7 +32,8 @@ func main() {
 
 	app := fiber.New()
 	app.Get("/swagger/*", swagger.HandlerDefault)
-	app.Use(logger.New()) // middleware - logger do logowania
+	app.Use(logger.New())                                                            // middleware - logger do logowania
+	app.Get("/metrics", monitor.New(monitor.Config{Title: "Monitor of the server"})) // middleware - do wyswietlania strony z statystykami strony
 	app.Get("/posts", controllers.PostRead)
 	app.Post("/post", controllers.PostCreate)
 	app.Get("post/:id", controllers.PostReadOne)
