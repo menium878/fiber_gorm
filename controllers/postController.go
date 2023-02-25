@@ -72,6 +72,15 @@ func PostUpdate(c *fiber.Ctx) error {
 	})
 }
 
+// Delete is a function to delete post from database
+// @Summary Delete from db
+// @Description Delete from id
+// @Tags post
+// @Accept json
+// @Produce json
+// @Success 200
+// @Failure 400
+// @Router /post/{id} [delete]
 func PostDelete(c *fiber.Ctx) error {
 	id := c.Params("id")
 	result := initializers.DB.Delete(&models.Post{}, id)
