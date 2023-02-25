@@ -31,7 +31,7 @@ func main() {
 
 	app := fiber.New()
 	app.Get("/swagger/*", swagger.HandlerDefault)
-	app.Use(logger.New()) // middleware
+	app.Use(logger.New()) // middleware - logger do logowania
 	app.Get("/posts", controllers.PostRead)
 	app.Post("/post", controllers.PostCreate)
 	app.Get("post/:id", controllers.PostReadOne)
