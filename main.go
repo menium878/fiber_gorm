@@ -8,6 +8,7 @@ import (
 	_ "fiber_gorm/docs"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cache"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/monitor"
 	"github.com/gofiber/swagger"
@@ -32,7 +33,8 @@ func main() {
 
 	app := fiber.New()
 	app.Get("/swagger/*", swagger.HandlerDefault)
-	app.Use(logger.New())                                                            // middleware - logger do logowania
+	app.Use(logger.New()) // middleware - logger do logowania
+	app.Use(cache.New())
 	app.Get("/metrics", monitor.New(monitor.Config{Title: "Monitor of the server"})) // middleware - do wyswietlania strony z statystykami strony
 	app.Get("/posts", controllers.PostRead)
 	app.Post("/post", controllers.PostCreate)
